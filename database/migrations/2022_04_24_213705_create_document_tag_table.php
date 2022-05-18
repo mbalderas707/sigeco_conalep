@@ -14,10 +14,12 @@ class CreateDocumentTagTable extends Migration
     public function up()
     {
         Schema::create('document_tag', function (Blueprint $table) {
-            //$table->id();
-            //$table->timestamps();
+            $table->id();
             $table->bigInteger('document_id')->unsigned();
             $table->bigInteger('tag_id')->unsigned();
+
+            $table->foreign('document_id')->references('id')->on('documents');
+            $table->foreign('tag_id')->references('id')->on('tags');
         });
     }
 

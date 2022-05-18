@@ -14,7 +14,7 @@ class CreateDocumentSenderTable extends Migration
     public function up()
     {
         Schema::create('document_sender', function (Blueprint $table) {
-            //$table->id();
+            $table->id();
             $table->bigInteger('document_id')->unsigned();
             $table->bigInteger('sender_id')->unsigned();
             //$table->timestamps();
