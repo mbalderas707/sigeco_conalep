@@ -6,22 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Position extends Model
+class File extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
-        'department_id'
+        'file_path'
     ];
 
-    public function department()
+    public function fileable()
     {
-        return $this->belongsTo(Department::class);
-    }
-
-    public function profile()
-    {
-        return $this->morphOne(Profile::class, 'profilable');
+        return $this->morphTo();
     }
 }

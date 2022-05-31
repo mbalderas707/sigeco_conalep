@@ -49,4 +49,14 @@ class Document extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }

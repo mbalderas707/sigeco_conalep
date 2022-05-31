@@ -21,14 +21,14 @@ class CreateDocumentsTable extends Migration
             $table->date('document_date');
             $table->datetime('received_since');
             $table->bigInteger('user_id')->unsigned();
-            //document file
             $table->bigInteger('status_id')->unsigned();
-            //profile
+            $table->bigInteger('profile_id')->unsigned();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 

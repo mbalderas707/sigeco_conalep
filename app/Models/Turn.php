@@ -34,4 +34,13 @@ class Turn extends Model
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function files()
+    {
+        return $this->morphMany(File::class,'fileable');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

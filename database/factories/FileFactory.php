@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CommentFactory extends Factory
+class FileFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,9 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'text'=>$this->faker->paragraph(2)
+            'name'=>$this->faker->name(),
+            'file_path'=>'../files/'
+
         ];
     }
 }

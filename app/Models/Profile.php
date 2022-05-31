@@ -21,4 +21,8 @@ class Profile extends Model
     public function profilable(){
         return $this->morphTo();
     }
+
+    public function documents(){
+        return $this->hasMany(Document::class);
+    }
 }
