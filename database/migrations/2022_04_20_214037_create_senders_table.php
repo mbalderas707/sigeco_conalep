@@ -18,7 +18,6 @@ class CreateSendersTable extends Migration
             $table->string('name');
             $table->string('position');
             $table->bigInteger('company_id')->unsigned();
-            //organization
             $table->softDeletes();
             $table->timestamps();
 

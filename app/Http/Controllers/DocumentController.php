@@ -12,11 +12,32 @@ class DocumentController extends Controller
         return view('documents.create');
     }
 
+    public function store()
+    {
+        $document = Document::create(request()->all());
+
+        return redirect(route('documents.index'));
+    }
+
+    public function edit($document)
+    {
+        return view('documents.edit')->with(['document' => Document::findOrFail($document)]);
+    }
+
+    public function update($document)
+    {
+        $document = Document::findOrFail($document);
+
+        $document->update(request()->all());
+
+        return redirect(route('documents.index'));
+    }
+
     public function destroy($document)
     {
         $document = Document::findOrFail($document);
         $document->delete();
-        return $document;
+        return redirect(route('documents.index'));
     }
 
     public function index()

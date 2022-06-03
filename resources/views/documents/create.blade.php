@@ -5,6 +5,7 @@
         <h1 class="text-center">Crea un documento:</h1>
         <div class="form-group">
         <form method="POST" action="{{ route('documents.store') }}">
+            @csrf
             <div class="form-row">
                 <label>Folio:</label>
                 <input class="form-control" type="text" name="folio" required>
@@ -29,6 +30,10 @@
                 <input class="form-control" type="text" name="received_since" required>
 
                 </span>
+            </div>
+
+            <div class="form-row">
+            <button type="submit" class="btn btn-primary btn-lg">Crear Documento</button>
             </div>
 
         </form>

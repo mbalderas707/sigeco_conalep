@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Documentos</h1>
+        <a class="btn btn-primary btn-lg" href="{{ route('documents.create') }}">Crear documento</a>
         @empty($documents)
             <div class="alert alert-warning" role="alert">
                 <p>La lista de documentos se encuentra vacía.</p>
@@ -32,6 +33,10 @@
                                     <a class="btn btn-primary"
                                         href="{{ route('documents.show', ['document' => $document->id]) }}">
                                         Mostrar
+                                    </a>
+                                    <a class="btn btn-primary"
+                                        href="{{ route('documents.edit', ['document' => $document->id]) }}">
+                                        Editar
                                     </a>
 
                                     <form method="POST"

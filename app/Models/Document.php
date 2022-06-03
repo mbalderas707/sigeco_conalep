@@ -17,7 +17,8 @@ class Document extends Model
         'description',
         'received_since',
         'status_id',
-        'user_id'
+        'user_id',
+        'profile_id'
     ];
 
     protected $casts = [
