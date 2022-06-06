@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDocumentRequest;
+use App\Http\Requests\UpdateDocumentRequest;
 use App\Models\Document;
 use Illuminate\Http\Request;
 
@@ -12,32 +14,30 @@ class DocumentController extends Controller
         return view('documents.create');
     }
 
-    public function store()
+    public function store(StoreDocumentRequest $request)
     {
-        $document = Document::create(request()->all());
+        $document = Document::create($request->validated());
 
-        return redirect(route('documents.index'));
+        return redirect()->route('documents.index')->withSuccess('El documento se ha almacenado exitosamente.');
     }
 
-    public function edit($document)
+    public function edit(Document $document)
     {
-        return view('documents.edit')->with(['document' => Document::findOrFail($document)]);
+        return view('documents.edit')->with(['document' => $document]);
     }
 
-    public function update($document)
+    public function update(UpdateDocumentRequest $request,Document $document)
     {
-        $document = Document::findOrFail($document);
+        $document->update($request->validated());
 
-        $document->update(request()->all());
-
-        return redirect(route('documents.index'));
+        return redirect()->route('documents.index')->withSuccess('El documento se ha actualizado exitosamente.');
     }
 
     public function destroy($document)
     {
         $document = Document::findOrFail($document);
         $document->delete();
-        return redirect(route('documents.index'));
+        return redirect()->route('documents.index')->withSuccess('El documento se ha eliminado exitosamente.');
     }
 
     public function index()
