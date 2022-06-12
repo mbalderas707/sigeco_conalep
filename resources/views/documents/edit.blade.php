@@ -22,16 +22,18 @@
 
             <div class="form-row">
                 <label>Fecha de documento:</label>
-                <input class="form-control" type="text" name="document_date" value = "{{ old('document_date') ?? $document->document_date}}" required>
+                <input class="form-control" type="date" name="document_date" value = "{{ old('document_date') ?? $document->document_date->format('Y-m-d')}}" required>
 
             </div>
 
             <div class="form-row">
                 <label>Fecha de recibido:</label>
-                <input class="form-control" type="text" name="received_since" value = "{{ old('received_since') ?? $document->received_since}}" required>
+                <input class="form-control" type="datetime-local" name="received_since" value = "{{ old('received_since') ?? $document->received_since->format('Y-m-d\TH:i') }}" required>
 
                 </span>
             </div>
+
+
 
             <div class="form-row">
             <button type="submit" class="btn btn-primary btn-lg">Editar Documento</button>

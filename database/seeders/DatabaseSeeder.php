@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         $profiles = Profile::get();
 
         $documents = Document::factory(50)->make()
-            ->each(function ($document) use ($users, $statuses, $profiles) {
+            ->each(function ($document) use ($users, $statuses, $profiles,$tags,$senders) {
                 $document->user_id = $users->random()->id;
                 $document->status_id = $statuses->random()->id;
                 $document->profile_id = $profiles->random()->id;
@@ -68,6 +68,12 @@ class DatabaseSeeder extends Seeder
                 for ($i = 0; $i <= rand(1, 3); $i++) {
                     $document->files()->save(File::factory()->make());
                 }
+                foreach($tags as $tag) {
+                    if (rand(1, 10) > 5) {
+                        $document->tags()->attach($tag);
+                    }
+                }
+                $document->senders()->attach(Sender::find($senders->random()->id));
             });
         $turns = Turn::factory(100)->make()
             ->each(function ($turn) use ($documents, $users) {

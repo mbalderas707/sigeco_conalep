@@ -13,7 +13,7 @@ class StoreDocumentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreDocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'folio'=>['required','max:255'],
+            'subject'=>['required','max:255'],
+            'description'=>['required','max:1000'],
+            'received_since'=>['required','date'],
+            'document_date'=>['required','date'],
+            'tags'=>['exists:App\Models\Tag,id'],
+            'senders'=>['required','exists:App\Models\Sender,id']
         ];
     }
 }

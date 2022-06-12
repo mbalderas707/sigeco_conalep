@@ -18,8 +18,13 @@ class Document extends Model
         'received_since',
         'status_id',
         'user_id',
-        'profile_id'
+        'profile_id',
     ];
+
+    public function scopeCurrentProfile($query)
+    {
+        $query->where('user_id',auth()->user()->id);
+    }
 
     protected $casts = [
         'document_date' => 'date',

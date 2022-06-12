@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+<div class="container">
         <h1>Documentos</h1>
         <a class="btn btn-primary btn-lg" href="{{ route('documents.create') }}">Crear documento</a>
-        @empty($documents)
+        @if(count($documents)==0)
             <div class="alert alert-warning" role="alert">
-                <p>La lista de documentos se encuentra vacía.</p>
+                <p>No existen documentos para el pefil seleccionado.</p>
             </div>
         @else
             <div class="table-responsive">
@@ -30,16 +30,16 @@
                                 <td>{{ $document->document_date->format('d-M-Y') }}</td>
                                 <td>{{ $document->status->name }}</td>
                                 <td>
-                                    <a class="btn btn-primary"
+                                    <a class="btn btn-primary d-inline-block m-1"
                                         href="{{ route('documents.show', ['document' => $document->id]) }}">
                                         Mostrar
                                     </a>
-                                    <a class="btn btn-primary"
+                                    <a class="btn btn-primary d-inline-block m-1"
                                         href="{{ route('documents.edit', ['document' => $document->id]) }}">
                                         Editar
                                     </a>
 
-                                    <form method="POST"
+                                    <form class="d-inline-block m-1" method="POST"
                                         action="{{ route('documents.destroy', ['document' => $document->id]) }}">
                                         @csrf
                                         @method('DELETE')
@@ -55,6 +55,6 @@
                     </tbody>
                 </table>
             </div>
-        @endempty
+        @endif
     </div>
 @endsection
