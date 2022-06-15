@@ -30,41 +30,48 @@ class DocumentController extends Controller
         $document->user_id = auth()->user()->id;
         $document->profile_id = 1;
         $document->save();
-        $tags = $request->safe()->only('tags');
-        foreach ($tags as $tag) {
-            $document->tags()->attach($tag);
+        $document->tags()->attach($request->tags);
+        $document->senders()->attach($request->senders);
+        foreach ($request->pdfs as $pdf) {
+            $document->files()->create(['name' => $pdf->getClientOriginalName(), 'path' => $pdf->store($document->id, 'pdfs')]);
         }
-        $senders=$request->safe()->only('senders');
-        foreach($senders as $sender){
-            $document->senders()->attach($sender);
-        }
-        return redirect()->route('documents.index')->withSuccess('El documento se ha almacenado exitosamente.');
+
+
+        return redirect()->route('documents.show', $document)->withSuccess('El documento se ha almacenado exitosamente.');
     }
 
     public function edit(Document $document)
     {
-        return view('documents.edit')->with(['document' => $document]);
+        $tags = Tag::all();
+        $companies = Company::all();
+        return view('documents.edit')->with(['document' => $document, 'tags' => $tags, 'companies' => $companies]);
     }
 
     public function update(UpdateDocumentRequest $request, Document $document)
     {
         $document->update($request->validated());
+        $document->senders()->sync($request->senders);
+        $document->tags()->sync($request->tags);
 
-        return redirect()->route('documents.index')->withSuccess('El documento se ha actualizado exitosamente.');
+        if ($request->hasFile('pdfs')) {
+            foreach ($request->pdfs as $pdf) {
+                $document->files()->create(['name' => $pdf->getClientOriginalName(), 'path' => $pdf->store($document->id, 'pdfs')]);
+            }
+        }
+
+        return redirect()->route('documents.show', $document)->withSuccess('El documento se ha actualizado exitosamente.');
     }
 
-    public function destroy($document)
+    public function destroy(Document $document)
     {
-        $document = Document::findOrFail($document);
         $document->delete();
         return redirect()->route('documents.index')->withSuccess('El documento se ha eliminado exitosamente.');
     }
 
     public function index()
     {
-        return view('documents.index')->with(['documents' => Document::currentProfile()->get()]);
-
-
+        //return view('documents.index')->with(['documents' => Document::currentProfile()->get()]);
+        return view('documents.index')->with(['documents' => Document::all()]);
     }
 
     public function show(Document $document)

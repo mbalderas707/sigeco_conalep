@@ -19,6 +19,7 @@
                             <th>Status</th>
                             <th>Etiqueta(s)</th>
                             <th>Remitente(s)</th>
+                            <th>Archivo(s)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,8 +36,16 @@
                             </td>
                             <td>
                                 @foreach ($document->senders as $sender)
-                                    <p>{{ $sender->name }}-{{ $sender->company->acronym }}</p>
+                                    <p>{{ $sender->name }} - {{ $sender->position }}</p>
+                                    <p>{{ $sender->company->acronym }}</p>
                                 @endforeach
+                            </td>
+                            <td>
+                                <div class="list-group list-group-light">
+                                @foreach ($document->files as $file)
+                                    <a class="list-group-item list-group-item-action px-3 border-0" href="{{asset("pdfs/{$file->path}") }}" target="_blank">{{ $file->name }}</a>
+                                @endforeach
+                                </div>
                             </td>
                         </tr>
                     </tbody>

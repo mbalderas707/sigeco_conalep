@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -81,6 +82,8 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        Storage::disk('pdfs')->delete($file->path);
+        $file->delete();
+        return back();
     }
 }

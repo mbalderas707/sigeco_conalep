@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+    <div class="container">
         <h1>Documentos</h1>
-        <a class="btn btn-primary btn-lg" href="{{ route('documents.create') }}">Crear documento</a>
-        @if(count($documents)==0)
+        <a class="btn btn-primary btn-rounded btn-lg" href="{{ route('documents.create') }}">Crear documento</a>
+        @if (count($documents) == 0)
             <div class="alert alert-warning" role="alert">
                 <p>No existen documentos para el pefil seleccionado.</p>
             </div>
@@ -18,6 +18,8 @@
                             <th>Descripción</th>
                             <th>Fecha del Documento</th>
                             <th>Status</th>
+                            <th>Remitente(s)</th>
+                            <th>Etiqueta(s)</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -30,11 +32,22 @@
                                 <td>{{ $document->document_date->format('d-M-Y') }}</td>
                                 <td>{{ $document->status->name }}</td>
                                 <td>
-                                    <a class="btn btn-primary d-inline-block m-1"
+                                    @foreach ($document->senders as $sender)
+                                        <p>{{ $sender->name }}-{{ $sender->company->acronym }}</p>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($document->tags as $tag)
+                                        <a class="btn btn-info d-inline-block m-1"
+                                            href="">{{ $tag->name }}</a>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-rounded d-inline-block m-1"
                                         href="{{ route('documents.show', ['document' => $document->id]) }}">
                                         Mostrar
                                     </a>
-                                    <a class="btn btn-primary d-inline-block m-1"
+                                    <a class="btn btn-primary btn-rounded d-inline-block m-1"
                                         href="{{ route('documents.edit', ['document' => $document->id]) }}">
                                         Editar
                                     </a>
@@ -45,7 +58,7 @@
                                         @method('DELETE')
                                         <button
                                             onclick="return confirm('¿Seguro que deseas eliminar el producto {{ $document->id }}?')"
-                                            type="submit" class="btn btn-danger">
+                                            type="submit" class="btn btn-rounded btn-danger">
                                             Eliminar
                                         </button>
                                     </form>

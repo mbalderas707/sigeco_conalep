@@ -23,7 +23,7 @@ class Document extends Model
 
     public function scopeCurrentProfile($query)
     {
-        $query->where('user_id',auth()->user()->id);
+        $query->where('user_id', auth()->user()->id);
     }
 
     protected $casts = [

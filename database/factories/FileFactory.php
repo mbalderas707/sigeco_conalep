@@ -14,8 +14,8 @@ class FileFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name(),
-            'file_path'=>'../files/'
+            'name'=>$this->faker->name().'.pdf',
+            'path'=>'/test.pdf'
 
         ];
     }

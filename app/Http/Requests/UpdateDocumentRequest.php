@@ -29,6 +29,9 @@ class UpdateDocumentRequest extends FormRequest
             'description'=>['required','max:1000'],
             'received_since'=>['required','date'],
             'document_date'=>['required','date'],
+            'tags'=>['nullable','exists:App\Models\Tag,id'],
+            'senders'=>['required','exists:App\Models\Sender,id'],
+            'pdfs.*'=> ['nullable','file','mimetypes:application/pdf','max:2048']
 
         ];
     }
