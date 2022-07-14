@@ -43,4 +43,8 @@ class Turn extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+    public function instruction(){
+        return $this->belongsTo(Instruction::class);
+    }
 }

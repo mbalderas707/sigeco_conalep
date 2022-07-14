@@ -71,7 +71,7 @@ class DocumentController extends Controller
     public function index()
     {
         //return view('documents.index')->with(['documents' => Document::currentProfile()->get()]);
-        return view('documents.index')->with(['documents' => Document::all()]);
+        return view('documents.index')->with(['documents' => Document::paginate(10)]);
     }
 
     public function show(Document $document)

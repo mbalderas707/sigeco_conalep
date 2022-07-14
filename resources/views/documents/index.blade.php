@@ -67,6 +67,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {!! $documents->links() !!}
             </div>
         @endif
     </div>

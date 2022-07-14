@@ -7,7 +7,7 @@ use App\Models\Company;
 use App\Models\Department;
 use App\Models\Document;
 use App\Models\File;
-use App\Models\Notification;
+use App\Models\Instruction;
 use App\Models\Position;
 use App\Models\Profile;
 use App\Models\Reply;
@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(10)->create();
 
         $statuses = Status::factory(5)->create();
+
+        $instructions = Instruction::factory(10)->create();
 
         $companies = Company::factory(10)->create();
 
@@ -76,9 +78,10 @@ class DatabaseSeeder extends Seeder
                 $document->senders()->attach(Sender::find($senders->random()->id));
             });
         $turns = Turn::factory(100)->make()
-            ->each(function ($turn) use ($documents, $users) {
+            ->each(function ($turn) use ($documents, $users,$instructions) {
                 $turn->document_id = $documents->random()->id;
                 $turn->user_id = $users->random()->id;
+                $turn->instruction_id=$instructions->random()->id;
                 $turn->save();
                 for ($i = 0; $i <= rand(1, 3); $i++) {
                     $turn->files()->save(File::factory()->make());

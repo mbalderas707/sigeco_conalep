@@ -19,11 +19,13 @@ class CreateTurnsTable extends Migration
             $table->date('expiration');
             $table->bigInteger('document_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('instruction_id')->unsigned();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('document_id')->references('id')->on('documents');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('instruction_id')->references('id')->on('instructions');
         });
     }
 

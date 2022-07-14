@@ -100,7 +100,7 @@
 
         <main class="py-4">
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="note note-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -110,7 +110,7 @@
             @endif
 
             @if (session()->has('success'))
-                <div class="alert alert-success">
+                <div class="note note-success">
                     <ul>
                         {{ session()->get('success') }}
                     </ul>
