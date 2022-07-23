@@ -33,13 +33,12 @@
                                 <td>{{ $document->status->name }}</td>
                                 <td>
                                     @foreach ($document->senders as $sender)
-                                        <p>{{ $sender->name }}-{{ $sender->company->acronym }}</p>
+                                        <p>{{ $sender->name }}-{{ $sender->company->acronym}}</p>
                                     @endforeach
                                 </td>
                                 <td>
                                     @foreach ($document->tags as $tag)
-                                        <a class="btn btn-info d-inline-block m-1"
-                                            href="">{{ $tag->name }}</a>
+                                        <a class="btn btn-info d-inline-block m-1" href="">{{ $tag->name }}</a>
                                     @endforeach
                                 </td>
                                 <td>
@@ -57,7 +56,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button
-                                            onclick="return confirm('¿Seguro que deseas eliminar el producto {{ $document->id }}?')"
+                                            onclick="return confirm('¿Seguro que deseas eliminar el registro {{ $document->folio }}?')"
                                             type="submit" class="btn btn-rounded btn-danger">
                                             Eliminar
                                         </button>

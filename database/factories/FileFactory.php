@@ -15,7 +15,7 @@ class FileFactory extends Factory
     {
         return [
             'name'=>$this->faker->name().'.pdf',
-            'path'=>'/test.pdf'
+            'path'=>'test.pdf'
 
         ];
     }

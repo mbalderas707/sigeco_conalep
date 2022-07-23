@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Document;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -64,6 +65,11 @@ class DocumentController extends Controller
 
     public function destroy(Document $document)
     {
+        foreach ($document->files as $file) {
+            Storage::disk('pdfs')->delete($file->path);
+            $file->delete();
+        }
+
         $document->delete();
         return redirect()->route('documents.index')->withSuccess('El documento se ha eliminado exitosamente.');
     }

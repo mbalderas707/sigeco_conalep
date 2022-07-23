@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Auth;
@@ -26,3 +28,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('documents',DocumentController::class);
 Route::resource('files',FileController::class)->only('destroy');
+Route::resource('companies',CompanyController::class);
+Route::resource('departments',DepartmentController::class);
