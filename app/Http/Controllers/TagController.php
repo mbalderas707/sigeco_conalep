@@ -15,7 +15,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return view('tags.index')->with(['tags' => Tag::paginate(10)]);
     }
 
     /**
@@ -25,7 +25,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tags.create');
     }
 
     /**
@@ -36,7 +36,10 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
+        $position = Tag::create($request->validated());
+        return redirect()
+            ->route('tags.index')
+            ->withSuccess('La etiqueta se ha almacenado exitosamente.');
     }
 
     /**
@@ -58,7 +61,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('tags.edit')->with(['tag' => $tag]);
     }
 
     /**
@@ -70,7 +73,8 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        $tag->update($request->validated());
+        return redirect()->route('tags.index')->withSuccess('La etiqueta se ha actualizado exitosamente.');
     }
 
     /**

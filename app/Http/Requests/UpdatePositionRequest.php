@@ -13,7 +13,7 @@ class UpdatePositionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,9 @@ class UpdatePositionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return[
+            'name' => ['required', 'max:255'],
+            'department_id' => ['required', 'exists:App\Models\Department,id']
         ];
     }
 }

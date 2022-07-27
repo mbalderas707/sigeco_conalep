@@ -15,7 +15,7 @@
                     <input class="form-control" type="text" name="subject" value="{{ old('subject') }}" required />
                 </div>
                 <div class="form-row">
-                    <label for="description" class="col-md-4 col-form-label text-md-right" >Descripción</label>
+                    <label for="description" class="col-md-4 col-form-label text-md-right">Descripción</label>
                     <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
                 </div>
 
@@ -63,7 +63,8 @@
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">{{ __('Documento escaneado y anexos:') }}</label>
                     <div class="custom-file">
-                        <input class="form-control" id ="formFileMultiple" type="file" accept=".pdf" name="pdfs[]" multiple required />
+                        <input class="form-control" id="formFileMultiple" type="file" accept=".pdf" name="pdfs[]"
+                            multiple required />
                     </div>
                 </div>
 
@@ -80,9 +81,11 @@
     <script>
         $(document).ready(function() {
             // Select2 Multiple
+
+
             $('.select2-multiple').select2({
                 placeholder: "Selecciona las etiquetas...",
-                allowClear: true
+                allowClear: true,
             });
 
         });

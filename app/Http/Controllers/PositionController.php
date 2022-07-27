@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Position;
 use App\Http\Requests\StorePositionRequest;
 use App\Http\Requests\UpdatePositionRequest;
+use App\Models\Department;
+use App\Models\Profile;
 
 class PositionController extends Controller
 {
@@ -15,7 +17,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        return view('positions.index')->with(['positions' => Position::paginate(10)]);
     }
 
     /**
@@ -25,7 +27,8 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('positions.create', ['departments' => $departments]);
     }
 
     /**
@@ -36,7 +39,9 @@ class PositionController extends Controller
      */
     public function store(StorePositionRequest $request)
     {
-        //
+        $position = Position::create($request->validated());
+        $position->profile()->save(Profile::factory()->make());
+        return redirect()->route('positions.index')->withSuccess('El puesto se ha almacenado exitosamente.');
     }
 
     /**
@@ -58,7 +63,8 @@ class PositionController extends Controller
      */
     public function edit(Position $position)
     {
-        //
+        $departments = Department::all();
+        return view('positions.edit')->with(['position' => $position, 'departments' => $departments]);
     }
 
     /**
@@ -70,7 +76,8 @@ class PositionController extends Controller
      */
     public function update(UpdatePositionRequest $request, Position $position)
     {
-        //
+        $position->update($request->validated());
+        return redirect()->route('positions.index')->withSuccess('El puesto se ha actualizado exitosamente.');
     }
 
     /**

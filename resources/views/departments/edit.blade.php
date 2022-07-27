@@ -9,7 +9,7 @@
                 @method('PUT')
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">Nombre:</label>
-                    <input class="form-control" type="text" name="name" value="{{ old('name') ?? $department->name }}"" required />
+                    <input class="form-control" type="text" name="name" value="{{ old('name') ?? $department->name }}" required />
                 </div>
 
 

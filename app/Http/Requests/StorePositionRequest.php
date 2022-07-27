@@ -13,7 +13,7 @@ class StorePositionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StorePositionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required','max:255'],
+            'department_id'=>['required','exists:App\Models\Department,id']
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sender;
 use App\Http\Requests\StoreSenderRequest;
 use App\Http\Requests\UpdateSenderRequest;
+use App\Models\Company;
 
 class SenderController extends Controller
 {
@@ -15,7 +16,7 @@ class SenderController extends Controller
      */
     public function index()
     {
-        //
+        return view('senders.index')->with(['senders'=>Sender::paginate(10)]);
     }
 
     /**
@@ -25,7 +26,7 @@ class SenderController extends Controller
      */
     public function create()
     {
-        //
+        return view('senders.create')->with(['companies'=>Company::all()]);
     }
 
     /**
@@ -36,7 +37,8 @@ class SenderController extends Controller
      */
     public function store(StoreSenderRequest $request)
     {
-        //
+        $position = Sender::create($request->validated());
+        return redirect()->route('senders.index')->withSuccess('El remitente se ha almacenado exitosamente.');
     }
 
     /**
@@ -58,7 +60,8 @@ class SenderController extends Controller
      */
     public function edit(Sender $sender)
     {
-        //
+
+        return view('senders.edit')->with(['sender' => $sender, 'companies' => Company::all()]);
     }
 
     /**
@@ -70,7 +73,8 @@ class SenderController extends Controller
      */
     public function update(UpdateSenderRequest $request, Sender $sender)
     {
-        //
+        $sender->update($request->validated());
+        return redirect()->route('senders.index')->withSuccess('El remitente se ha actualizado exitosamente.');
     }
 
     /**

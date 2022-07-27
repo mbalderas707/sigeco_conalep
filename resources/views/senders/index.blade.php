@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h1>Compañias/Dependencias</h1>
-        <a class="btn btn-primary btn-rounded btn-lg" href="{{ route('companies.create') }}">Crear nueva</a>
-        @if (count($companies) == 0)
+        <h1>Remitentes</h1>
+        <a class="btn btn-primary btn-rounded btn-lg" href="{{ route('senders.create') }}">Crear nuevo</a>
+        @if (count($senders) == 0)
             <div class="alert alert-warning" role="alert">
                 <p>No existen registros en el catálogo.</p>
             </div>
@@ -14,19 +14,21 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Acrónimo o Abreviatura</th>
+                            <th>Puesto</th>
+                            <th>Compañia/Dependencia</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($companies as $company)
+                        @foreach ($senders as $sender)
                             <tr>
-                                <td>{{ $company->name }}</td>
-                                <td>{{ $company->acronym }}</td>
+                                <td>{{ $sender->name }}</td>
+                                <td>{{ $sender->position }}</td>
+                                <td>{{ $sender->company->name }}</td>
                                 <td>
 
                                     <a class="btn btn-primary btn-rounded d-inline-block m-1"
-                                        href="{{ route('companies.edit', ['company' => $company->id]) }}">
+                                        href="{{ route('senders.edit', ['sender' => $sender->id]) }}">
                                         Editar
                                     </a>
 
@@ -36,7 +38,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $companies->links() !!}
+                {!! $senders->links() !!}
             </div>
         @endif
     </div>

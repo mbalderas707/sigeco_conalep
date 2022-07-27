@@ -16,6 +16,7 @@ class TagFactory extends Factory
         return [
             'name'=>$this->faker->name(),
             'description'=>$this->faker->paragraph(1),
+            'color'=>$this->faker->hexColor()
             //
         ];
     }

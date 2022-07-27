@@ -38,7 +38,7 @@
                                 </td>
                                 <td>
                                     @foreach ($document->tags as $tag)
-                                        <a class="btn btn-info d-inline-block m-1" href="">{{ $tag->name }}</a>
+                                        <a class="btn d-inline-block m-1" style="background-color: {{$tag->color}}" href="">{{ $tag->name }}</a>
                                     @endforeach
                                 </td>
                                 <td>

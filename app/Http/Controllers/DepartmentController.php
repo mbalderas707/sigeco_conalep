@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
+use App\Models\Profile;
 
 class DepartmentController extends Controller
 {
@@ -15,7 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('departments.index')->with(['departments' => Department::paginate(10)]);
     }
 
     /**
@@ -25,7 +26,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('departments.create');
     }
 
     /**
@@ -36,7 +37,9 @@ class DepartmentController extends Controller
      */
     public function store(StoreDepartmentRequest $request)
     {
-        //
+        $department = Department::create($request->validated());
+        $department->profile()->save(Profile::factory()->make());
+        return redirect()->route('departments.index')->withSuccess('El departamento se ha almacenado exitosamente.');
     }
 
     /**
@@ -58,7 +61,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('departments.edit')->with(['department' => $department]);
     }
 
     /**
@@ -70,7 +73,8 @@ class DepartmentController extends Controller
      */
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        //
+        $department->update($request->validated());
+        return redirect()->route('departments.index')->withSuccess('El departamento se ha actualizado exitosamente.');
     }
 
     /**

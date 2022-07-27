@@ -13,7 +13,7 @@ class StoreSenderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreSenderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required','max:255'],
+            'position'=>['required','max:255'],
+            'company_id'=>['required','exists:App\Models\Company,id']
         ];
     }
 }

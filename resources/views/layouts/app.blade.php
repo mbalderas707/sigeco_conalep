@@ -55,8 +55,16 @@
                             <a class="nav-link dropdown toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">Catálogos</a>
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('senders.index') }}">Remitentes</a>
+                                </li>
                                 <li><a class="dropdown-item"
                                         href="{{ route('companies.index') }}">Compañias/Dependencias</a></li>
+                                <li><a class="dropdown-item" href="{{ route('departments.index') }}">Departamentos</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('positions.index') }}">Puestos</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('tags.index') }}">Etiquetas</a>
+                                </li>
                             </ul>
                         </li>
 

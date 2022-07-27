@@ -13,7 +13,7 @@ class StoreTagRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreTagRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required','max:255'],
+            'description'=>['required','max:1000'],
+            'color'=>['required']
         ];
     }
 }
