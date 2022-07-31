@@ -59,6 +59,8 @@
                                 </li>
                                 <li><a class="dropdown-item"
                                         href="{{ route('companies.index') }}">Compañias/Dependencias</a></li>
+                                        <li><a class="dropdown-item"
+                                            href="{{ route('instructions.index') }}">Instrucciones</a></li>
                                 <li><a class="dropdown-item" href="{{ route('departments.index') }}">Departamentos</a>
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('positions.index') }}">Puestos</a>

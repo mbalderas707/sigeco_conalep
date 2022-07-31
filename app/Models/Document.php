@@ -65,4 +65,10 @@ class Document extends Model
     {
         return $this->morphMany(File::class, 'fileable');
     }
+
+    public function scopeTag($query, $tag)
+    {
+        if($tag)
+        return $query->where('id_tag',$tag);
+    }
 }

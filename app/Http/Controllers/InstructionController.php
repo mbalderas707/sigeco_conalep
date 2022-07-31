@@ -15,7 +15,7 @@ class InstructionController extends Controller
      */
     public function index()
     {
-        //
+        return view('instructions.index')->with(['instructions'=>Instruction::paginate(10)]);
     }
 
     /**
@@ -25,7 +25,7 @@ class InstructionController extends Controller
      */
     public function create()
     {
-        //
+        return view ('instructions.create');
     }
 
     /**
@@ -36,7 +36,8 @@ class InstructionController extends Controller
      */
     public function store(StoreInstructionRequest $request)
     {
-        //
+        Instruction::create($request->validated());
+        return redirect()->route('instructions.index')->withSuccess('La instrucción se ha almacenado exitosamente.');
     }
 
     /**
@@ -58,7 +59,7 @@ class InstructionController extends Controller
      */
     public function edit(Instruction $instruction)
     {
-        //
+        return view('instructions.edit')->with(['instruction'=>$instruction]);
     }
 
     /**
@@ -70,7 +71,8 @@ class InstructionController extends Controller
      */
     public function update(UpdateInstructionRequest $request, Instruction $instruction)
     {
-        //
+        $instruction->update($request->validated());
+        return redirect()->route('instructions.index')->withSuccess('La instrucción se ha actualizado exitosamente.');
     }
 
     /**

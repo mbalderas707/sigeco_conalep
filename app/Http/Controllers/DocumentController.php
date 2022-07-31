@@ -74,10 +74,11 @@ class DocumentController extends Controller
         return redirect()->route('documents.index')->withSuccess('El documento se ha eliminado exitosamente.');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $tag=$request->get('tag');
         //return view('documents.index')->with(['documents' => Document::currentProfile()->get()]);
-        return view('documents.index')->with(['documents' => Document::paginate(10)]);
+        return view('documents.index')->with(['documents' => Document::tag($tag)->paginate(10)]);
     }
 
     public function show(Document $document)

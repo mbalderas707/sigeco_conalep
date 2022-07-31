@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">Instrucción:</label>
-                    <input class="form-control" type="text" name="instruction" value="{{ old('instruction') }}" required />
+                    <input class="form-control" type="text" name="description" value="{{ old('description') }}" required />
                 </div>
 
                 <div class="form-row m-3">

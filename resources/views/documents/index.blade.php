@@ -33,12 +33,13 @@
                                 <td>{{ $document->status->name }}</td>
                                 <td>
                                     @foreach ($document->senders as $sender)
-                                        <p>{{ $sender->name }}-{{ $sender->company->acronym}}</p>
+                                        <p>{{ $sender->name }}-{{ $sender->company->acronym }}</p>
                                     @endforeach
                                 </td>
                                 <td>
                                     @foreach ($document->tags as $tag)
-                                        <a class="btn d-inline-block m-1" style="background-color: {{$tag->color}}" href="">{{ $tag->name }}</a>
+                                        <a class="btn d-inline-block m-1" style="background-color: {{ $tag->color }}"
+                                            href="">{{ $tag->name }}</a>
                                     @endforeach
                                 </td>
                                 <td>
