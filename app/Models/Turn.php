@@ -11,6 +11,7 @@ class Turn extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
+        'instruction',
         'seen_since',
         'expiration',
     ];

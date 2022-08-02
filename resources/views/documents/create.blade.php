@@ -84,7 +84,7 @@
 
 
             $('.select2-multiple').select2({
-                placeholder: "Selecciona las etiquetas...",
+                placeholder: "Selecciona ...",
                 allowClear: true,
             });
 

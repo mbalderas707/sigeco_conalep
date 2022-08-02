@@ -6,6 +6,7 @@ use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use App\Models\Company;
 use App\Models\Document;
+use App\Models\Status;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,7 @@ class DocumentController extends Controller
         $document = Document::make($request->validated());
         $document->status_id = 1;
         $document->user_id = auth()->user()->id;
-        $document->profile_id = 1;
+        $document->profile_id = 1;//falta actualizar para tomar el perfil actual.
         $document->save();
         $document->tags()->attach($request->tags);
         $document->senders()->attach($request->senders);
@@ -76,13 +77,16 @@ class DocumentController extends Controller
 
     public function index(Request $request)
     {
+        $senders=$request->get('senders');
+        $statoos=$request->get('statoos');
         $tag=$request->get('tag');
+        $searchTerm=$request->get('searchTerm');
         //return view('documents.index')->with(['documents' => Document::currentProfile()->get()]);
-        return view('documents.index')->with(['documents' => Document::tag($tag)->paginate(10)]);
+        return view('documents.index')->with(['statoos'=>Status::all(), 'companies'=>Company::all(),'documents' => Document::tag($tag)->search($searchTerm)->filterSender($senders)->filterStatus($statoos)->Paginate(10)->withQueryString()]);
     }
 
     public function show(Document $document)
     {
-        return view('documents.show')->with(['document' => $document]);
+        return view('documents.show')->with(['document' => $document, 'statuses'=>Status::all()]);
     }
 }

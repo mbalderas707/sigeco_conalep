@@ -10,16 +10,7 @@ class Document extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'folio',
-        'subject',
-        'document_date',
-        'description',
-        'received_since',
-        'status_id',
-        'user_id',
-        'profile_id',
-    ];
+    protected $fillable = ['folio', 'subject', 'document_date', 'description', 'received_since', 'status_id', 'user_id', 'profile_id'];
 
     public function scopeCurrentProfile($query)
     {
@@ -28,7 +19,7 @@ class Document extends Model
 
     protected $casts = [
         'document_date' => 'date',
-        'received_since' => 'datetime'
+        'received_since' => 'datetime',
     ];
 
     public function senders()
@@ -68,7 +59,32 @@ class Document extends Model
 
     public function scopeTag($query, $tag)
     {
-        if($tag)
-        return $query->where('id_tag',$tag);
+        if ($tag) {
+            return $query->whereHas('tags', function ($query) use ($tag) {
+                $query->where('tags.id', $tag);
+            });
+        }
+    }
+
+    public function scopeSearch($query, $searchTerm)
+    {
+        if ($searchTerm)
+            return $query->where('folio', 'Like', "%$searchTerm%")
+                ->orWhere('subject', 'Like', "%$searchTerm%")
+                ->orWhere('description', 'Like', "%$searchTerm%");
+    }
+
+    public function ScopeFilterSender($query, $sender)
+    {
+        if ($sender)
+            return $query->whereHas('senders', function ($query) use ($sender) {
+                $query->whereIn('senders.id', $sender);
+            });
+    }
+
+    public function ScopeFilterStatus($query, $statoos)
+    {
+        if ($statoos)
+            return $query->whereIn('status_id', $statoos);
     }
 }
