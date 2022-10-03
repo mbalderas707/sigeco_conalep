@@ -13,7 +13,7 @@ class UpdateTurnRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateTurnRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'expiration'=>['required','date','after_or_equal_:today'],
+            'additional_instructions'=>['nullable','max:1000'],
+            'instruction_id'=>['required'],
+            'profiles.*'=>['required','exists:App\Models\Profile,id']
         ];
     }
 }

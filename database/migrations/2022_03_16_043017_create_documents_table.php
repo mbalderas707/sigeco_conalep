@@ -20,6 +20,7 @@ class CreateDocumentsTable extends Migration
             $table->text('description');
             $table->date('document_date');
             $table->datetime('received_since');
+            $table->boolean('filed');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('status_id')->unsigned();
             $table->bigInteger('profile_id')->unsigned();

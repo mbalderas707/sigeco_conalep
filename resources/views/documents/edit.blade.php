@@ -39,7 +39,7 @@
 
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">Etiquetas:</label>
-                    <select class="form-control select2-multiple" name="tags[]" multiple="multiple"
+                    <select class="form-control select2-multiple" style="width: 100%" name="tags[]" multiple="multiple"
                         id="select2Multiple">
                         @foreach ($tags as $tag)
                             <option
@@ -51,7 +51,7 @@
 
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">Remitentes:</label>
-                    <select class="form-control select2-multiple" name="senders[]" multiple="multiple"
+                    <select class="form-control select2-multiple" style="width: 100%" name="senders[]" multiple="multiple"
                         id="select2Multiple2" required>
                         @foreach ($companies as $company)
                             <optgroup label="{{ $company->name }}">

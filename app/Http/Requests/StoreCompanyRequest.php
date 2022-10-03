@@ -25,7 +25,7 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'name'=>['required','max:255'],
-            "acronym"=>['required','max:255']
+            'acronym'=>['required','max:255']
         ];
     }
 }

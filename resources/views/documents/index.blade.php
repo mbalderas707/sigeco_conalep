@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Documentos</h1>
+                <h1>Documentos en trámite</h1>
             </div>
             <div class="col">
                 <form method="GET" action="{{ route('documents.index') }}">
@@ -64,90 +64,85 @@
                     </form>
                 </div>
             </div>
-
-
-
-            @if (count($documents) == 0)
-                <div class="alert alert-warning" role="alert">
-                    <p>No existen documentos para el pefil seleccionado.</p>
-                </div>
-            @else
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th>Asunto</th>
-                                <th>Descripción</th>
-                                <th>Fecha del Documento</th>
-                                <th>Status</th>
-                                <th>Remitente(s)</th>
-                                <th>Etiqueta(s)</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($documents as $document)
-                                <tr>
-                                    <td>{{ $document->folio }}</td>
-                                    <td>{{ $document->subject }}</td>
-                                    <td>{{ $document->description }}</td>
-                                    <td>{{ $document->document_date->format('d-M-Y') }}</td>
-                                    <td>{{ $document->status->name }}</td>
-                                    <td>
-                                        @foreach ($document->senders as $sender)
-                                            <p>{{ $sender->name }}-{{ $sender->company->acronym }}</p>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @foreach ($document->tags as $tag)
-                                            <a class="btn d-inline-block m-1" style="background-color: {{ $tag->color }}"
-                                                href="?tag={{ $tag->id }}">{{ $tag->name }}</a>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-rounded d-inline-block m-1"
-                                            href="{{ route('documents.show', ['document' => $document->id]) }}">
-                                            Mostrar
-                                        </a>
-                                        <a class="btn btn-primary btn-rounded d-inline-block m-1"
-                                            href="{{ route('documents.edit', ['document' => $document->id]) }}">
-                                            Editar
-                                        </a>
-
-                                        <form class="d-inline-block m-1" method="POST"
-                                            action="{{ route('documents.destroy', ['document' => $document->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                onclick="return confirm('¿Seguro que deseas eliminar el registro {{ $document->folio }}?')"
-                                                type="submit" class="btn btn-rounded btn-danger">
-                                                Eliminar
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    {!! $documents->links() !!}
-                </div>
-            @endif
         </div>
-    @endsection
-
-    @section('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // Select2 Multiple
 
 
-                $('.select2-multiple').select2({
-                    placeholder: "Selecciona ...",
-                    allowClear: true,
-                });
 
+        @if (count($documents) == 0)
+            <div class="alert alert-warning" role="alert">
+                <p>No existen documentos para el pefil seleccionado.</p>
+            </div>
+        @else
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Asunto</th>
+                            <th>Descripción</th>
+                            <th>Fecha del Documento</th>
+                            <th>Status</th>
+                            <th>Remitente(s)</th>
+                            <th>Etiqueta(s)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($documents as $document)
+                            <tr>
+                                <td>{{ $document->folio }}</td>
+                                <td>{{ $document->subject }}</td>
+                                <td>{{ $document->description }}</td>
+                                <td>{{ $document->document_date->format('d-M-Y') }}</td>
+                                <td>{{ $document->status->name }}</td>
+                                <td>
+                                    @foreach ($document->senders as $sender)
+                                        <p>{{ $sender->name }}-{{ $sender->company->acronym }}</p>
+                                    @endforeach
+                                </td>
+                                <td>
+
+                                    @foreach ($document->tags as $tag)
+                                        <a class="btn btn-primary m-1" style="background-color:{{ $tag->color }}"
+                                            href="?tag={{ $tag->id }}">
+                                            {{ $tag->name }}
+                                        </a>
+                                    @endforeach
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-rounded m-1"
+                                        href="{{ route('documents.show', ['document' => $document->id]) }}">
+                                        Mostrar
+                                    </a>
+                                    <a class="btn btn-primary btn-rounded m-1"
+                                        href="{{ route('documents.edit', ['document' => $document->id]) }}">
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {!! $documents->links() !!}
+            </div>
+        @endif
+    </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Select2 Multiple
+
+
+            $('.select2-multiple').select2({
+                placeholder: "Selecciona ...",
+                allowClear: true,
             });
-        </script>
-    @endsection
+
+        });
+    </script>
+@endsection

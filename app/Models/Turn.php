@@ -11,14 +11,18 @@ class Turn extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'instruction',
+        'instruction_id',
         'seen_since',
+        'additional_instructions',
         'expiration',
+        'concluded',
+        'document_id'
     ];
 
     protected $casts = [
         'seen_since'=>'datetime',
-        'expiration'=>'date'
+        'expiration'=>'date',
+        'concluded'=>'boolean'
     ];
 
     public function user()
@@ -36,16 +40,20 @@ class Turn extends Model
         return $this->hasMany(Reply::class);
     }
 
-    public function files()
+    /*public function files()
     {
         return $this->morphMany(File::class,'fileable');
-    }
+    }*/
 
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
 
     public function instruction(){
         return $this->belongsTo(Instruction::class);
+    }
+
+    public function profiles(){
+        return $this->belongsToMany(Profile::class);
     }
 }

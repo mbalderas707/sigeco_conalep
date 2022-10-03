@@ -11,7 +11,11 @@ class Comment extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'user_id',
+        'turn_id',
+        'parent_id',
         'text'
+
     ];
 
     public function turn(){
@@ -24,6 +28,10 @@ class Comment extends Model
 
     public function file(){
         return $this->morphOne(File::class, 'fileable');
+    }
+
+    public function replies(){
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 
 

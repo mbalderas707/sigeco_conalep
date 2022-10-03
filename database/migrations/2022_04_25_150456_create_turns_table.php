@@ -17,6 +17,8 @@ class CreateTurnsTable extends Migration
             $table->id();
             $table->datetime('seen_since')->nullable();
             $table->date('expiration');
+            $table->text('additional_instructions')->nullable();
+            $table->boolean('concluded');
             $table->bigInteger('document_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('instruction_id')->unsigned();

@@ -10,7 +10,7 @@ class Document extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['folio', 'subject', 'document_date', 'description', 'received_since', 'status_id', 'user_id', 'profile_id'];
+    protected $fillable = ['folio', 'subject', 'document_date', 'description', 'received_since', 'filed', 'status_id', 'user_id', 'profile_id'];
 
     public function scopeCurrentProfile($query)
     {
@@ -20,6 +20,7 @@ class Document extends Model
     protected $casts = [
         'document_date' => 'date',
         'received_since' => 'datetime',
+        'filed'=>'boolean'
     ];
 
     public function senders()

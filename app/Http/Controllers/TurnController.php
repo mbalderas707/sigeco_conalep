@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Turn;
 use App\Http\Requests\StoreTurnRequest;
 use App\Http\Requests\UpdateTurnRequest;
+use App\Models\Department;
+use App\Models\Document;
+use App\Models\Instruction;
+use App\Models\Position;
+use App\Models\Profile;
+use Illuminate\Http\Request;
 
 class TurnController extends Controller
 {
@@ -23,9 +29,15 @@ class TurnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $document=Document::find($request->get('document'));
+        $positions = Position::all();
+        $departments = Department::all();
+        $instructions= Instruction::all();
+
+
+        return view('turns.create')->with(['document'=>$document,'positions'=>$positions, 'departments'=>$departments, 'instructions'=>$instructions]);
     }
 
     /**
@@ -36,7 +48,14 @@ class TurnController extends Controller
      */
     public function store(StoreTurnRequest $request)
     {
-        //
+        $document = Document::find($request->get('document_id'));
+        $turn= Turn::make($request->validated());
+        $turn->concluded=false;
+        $turn->user_id = auth()->user()->id;
+        $turn->save();
+        $turn->profiles()->attach($request->get('profiles'));
+
+        return redirect()->route('documents.show', $document)->withSuccess('El Turno se ha realizado exitosamente.');
     }
 
     /**
@@ -47,7 +66,7 @@ class TurnController extends Controller
      */
     public function show(Turn $turn)
     {
-        //
+        return view('turns.show')->with(['turn' => $turn]);
     }
 
     /**
@@ -58,7 +77,11 @@ class TurnController extends Controller
      */
     public function edit(Turn $turn)
     {
-        //
+        $departments = Department::all();
+        $positions=Position::all();
+        $instructions= Instruction::all();
+
+        return view('turns.edit')->with(['turn'=> $turn,'departments'=>$departments,'positions'=>$positions,'instructions'=>$instructions]);
     }
 
     /**
@@ -70,7 +93,10 @@ class TurnController extends Controller
      */
     public function update(UpdateTurnRequest $request, Turn $turn)
     {
-        //
+        $turn->update($request->validated());
+        $turn->profiles()->sync($request->profiles);
+
+        return redirect()->route('turns.show', $turn)->withSuccess('El Turno se ha actualizado exitosamente.');
     }
 
     /**

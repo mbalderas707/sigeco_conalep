@@ -13,7 +13,7 @@ class StoreCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'text'=>['required','max:1000'],
+            'pdf'=> ['nullable','file','mimetypes:application/pdf','max:2048'],
+            'turn_id'=>['required','exists:App\Models\Turn,id'],
+            'parent_id'=>['nullable','exists:App\Models\Comment,id']
         ];
     }
 }

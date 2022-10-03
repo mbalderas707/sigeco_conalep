@@ -14,8 +14,8 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name(),
-            'acronym'=>$this->faker->sentence(1)
+            'name'=>$this->faker->company(),
+            'acronym'=>$this->faker->companySuffix()
         ];
     }
 }

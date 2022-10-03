@@ -78,14 +78,13 @@ class DatabaseSeeder extends Seeder
                 $document->senders()->attach(Sender::find($senders->random()->id));
             });
         $turns = Turn::factory(100)->make()
-            ->each(function ($turn) use ($documents, $users,$instructions) {
+            ->each(function ($turn) use ($documents, $users,$instructions,$profiles) {
                 $turn->document_id = $documents->random()->id;
                 $turn->user_id = $users->random()->id;
                 $turn->instruction_id=$instructions->random()->id;
                 $turn->save();
-                for ($i = 0; $i <= rand(1, 3); $i++) {
-                    $turn->files()->save(File::factory()->make());
-                }
+
+                $turn->profiles()->attach(Profile::find($profiles->random()->id));
             });
 
         $replies = Reply::factory(10)->make()

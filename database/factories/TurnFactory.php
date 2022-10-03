@@ -14,8 +14,10 @@ class TurnFactory extends Factory
     public function definition()
     {
         return [
-          'seen_since'=>now(),
-          'expiration'=>now()
+            'seen_since' => now(),
+            'expiration' => now()->addDays(15),
+            'additional_instructions'=>$this->faker->text(),
+            'concluded'=>false
         ];
     }
 }

@@ -14,7 +14,7 @@
                     <label class="col-md-4 col-form-label text-md-right">Departamento:</label>
                     <select class="form-select" name="department_id" required>
                         @foreach ($departments as $department)
-                            <option value="{{ $department->id }}">{{ $department->name }}
+                            <option value="{{ $department->id }}" {{old('department_id')==$department->id ? 'selected':''}}>{{ $department->name }}</option>
                         @endforeach
                     </select>
                 </div>

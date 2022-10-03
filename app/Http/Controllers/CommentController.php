@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Models\Turn;
 
 class CommentController extends Controller
 {
@@ -25,7 +26,6 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -36,7 +36,16 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        $comment = Comment::make($request->validated());
+        $comment->user_id = auth()->user()->id;
+        $comment->save();
+        $turn = Turn::find($comment->turn_id);
+        if ($request->pdf) {
+            $comment->file()->create(['name' => $request->pdf->getClientOriginalName(), 'path' => $request->pdf->store($turn->document->id, 'pdfs')]);
+        }
+
+
+        return redirect()->route('turns.show', $turn)->withSuccess('El comentario se ha almacenado exitosamente.');
     }
 
     /**

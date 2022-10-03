@@ -12,11 +12,13 @@
                 </div>
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">Descripción:</label>
-                    <input class="form-control" type="text" name="description" value="{{ old('description') }}" required />
+                    <input class="form-control" type="text" name="description" value="{{ old('description') }}"
+                        required />
                 </div>
                 <div class="form-row">
                     <label class="col-md-4 col-form-label text-md-right">Color:</label>
-                    <input class="form-control form-control-color" type="color" name="color" required>
+                    <input class="form-control form-control-color" type="color" name="color" value={{ old('color') }}
+                        required>
 
 
                 </div>
@@ -29,4 +31,3 @@
         </div>
     </div>
 @endsection
-

@@ -17,6 +17,7 @@ class DocumentFactory extends Factory
             'folio'=>$this->faker->sentence(1),
             'subject'=>$this->faker->sentence(3),
             'description'=>$this->faker->paragraph(1),
+            'filed'=>false,
             'received_since'=>now(),
             'document_date'=>now(),
         ];

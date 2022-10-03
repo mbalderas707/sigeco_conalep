@@ -18,11 +18,16 @@ class CreateCommentsTable extends Migration
             $table->text('text');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('turn_id')->unsigned();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('turn_id')->references('id')->on('turns');
             $table->foreign('user_id')->references('id')->on('users');
+        });
+
+        Schema::table('comments', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('comments');
         });
     }
 
