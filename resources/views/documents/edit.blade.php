@@ -95,15 +95,20 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Select2 Multiple
-            $('.select2-multiple').select2({
-                placeholder: "Selecciona las etiquetas...",
-                allowClear: true
-            });
 
+@endsection
+
+@section('scripts')
+<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+<script src = {{asset('js/select2.min.js')}}> </script>
+<script>
+    $(document).ready(function() {
+        // Select2 Multiple
+        $('.select2-multiple').select2({
+            placeholder: "Selecciona las etiquetas...",
+            allowClear: true
         });
-    </script>
+
+    });
+</script>
 @endsection

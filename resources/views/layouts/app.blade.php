@@ -30,9 +30,11 @@
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    @yield('scripts')
+<script src={{asset('js/jquery.min.js')}}></script>
+<script src = {{asset('js/select2.min.js')}}> </script>
+<link href={{asset('css/select2.min.css')}} rel="stylesheet"/>
+
+@yield('scripts')
 </head>
 
 <body>
