@@ -31,8 +31,8 @@ Route::get('/', function () {
 Auth::routes(['verify'=> true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('documents',DocumentController::class);
+Route::middleware(['auth'])->group(function(){
+    Route::resource('documents',DocumentController::class);
 Route::resource('turns',TurnController::class);
 Route::resource('files',FileController::class)->only('destroy');
 Route::resource('companies',CompanyController::class)->only(['create','edit','index','store','update']);
@@ -42,4 +42,6 @@ Route::resource('senders',SenderController::class)->except(['destroy','show']);
 Route::resource('tags',TagController::class)->except(['destroy','show']);
 Route::resource('instructions',InstructionController::class)->except(['destroy','show']);
 Route::resource('comments',CommentController::class)->only('store');
+});
+
 
